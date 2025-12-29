@@ -1,0 +1,14 @@
+{
+  "name": "brian-tech-bot",
+  "version": "1.0.0",
+  "description": "Brian Tech Telegram Bot (Pterodactyl-ready)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Brian Tech",
+  "license": "MIT",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.66.0"
+  }
+}
