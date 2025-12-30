@@ -1,7 +1,7 @@
 {
   "name": "brian-tech-bot",
-  "version": "1.0.0",
-  "description": "Brian Tech Telegram Bot",
+  "version": "2.0.0",
+  "description": "Brian Tech Telegram Bot + Website",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "node-telegram-bot-api": "^0.66.0"
   }
 }
