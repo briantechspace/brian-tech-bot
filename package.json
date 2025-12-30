@@ -1,7 +1,7 @@
 {
-  "name": "brian-tech-bot",
-  "version": "3.0.0",
-  "description": "Brian Tech Bot + AI + Orders + Database",
+  "name": "brian-tech-system",
+  "version": "4.0.0",
+  "description": "Brian Tech Bot + Orders + Admin Dashboard",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -10,6 +10,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-session": "^1.17.3",
     "node-telegram-bot-api": "^0.66.0",
     "sqlite3": "^5.1.7",
     "openai": "^4.29.2"
