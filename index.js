@@ -7,7 +7,7 @@ import OpenAI from "openai";
 
 dotenv.config();
 
-// ================= ENV =================
+/* ================= ENV ================= */
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const PORT = process.env.PORT || 3000;
 const OPENAI_KEY = process.env.OPENAI_API_KEY;
@@ -17,7 +17,7 @@ if (!BOT_TOKEN) {
   process.exit(1);
 }
 
-// ================= EXPRESS =================
+/* ================= EXPRESS ================= */
 const app = express();
 app.use(express.static("."));
 
@@ -29,10 +29,10 @@ app.listen(PORT, () => {
   console.log(`🌐 Website running on port ${PORT}`);
 });
 
-// ================= BOT =================
+/* ================= BOT ================= */
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
-// ================= DATABASE =================
+/* ================= DATABASE ================= */
 const db = new sqlite3.Database("database.db");
 
 db.run(`
@@ -45,20 +45,22 @@ db.run(`
   )
 `);
 
-// ================= ADMINS =================
+/* ================= ADMINS ================= */
 const admins = JSON.parse(fs.readFileSync("admin.json")).admins;
 
-// ================= AI =================
+/* ================= AI ================= */
 let openai = null;
 if (OPENAI_KEY) {
   openai = new OpenAI({ apiKey: OPENAI_KEY });
   console.log("🧠 AI enabled");
+} else {
+  console.log("⚠️ AI disabled (no key)");
 }
 
-// ================= STATE =================
+/* ================= STATE ================= */
 const awaitingOrder = new Set();
 
-// ================= MENU =================
+/* ================= MENU ================= */
 const menu = {
   reply_markup: {
     inline_keyboard: [
@@ -70,16 +72,16 @@ const menu = {
   }
 };
 
-// ================= START =================
+/* ================= START ================= */
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(
     msg.chat.id,
-    "👋 *Welcome to Brian Tech*\n\nChoose an option 👇",
-    { parse_mode: "Markdown", ...menu }
+    "👋 Welcome to Brian Tech\n\nChoose an option below 👇",
+    menu
   );
 });
 
-// ================= CALLBACKS =================
+/* ================= CALLBACKS ================= */
 bot.on("callback_query", (q) => {
   const chatId = q.message.chat.id;
 
@@ -90,23 +92,24 @@ bot.on("callback_query", (q) => {
 
   if (q.data === "ai") {
     if (!openai) {
-      return bot.sendMessage(chatId, "⚠️ AI not enabled.");
+      bot.sendMessage(chatId, "⚠️ AI is not enabled.");
+    } else {
+      bot.sendMessage(chatId, "🤖 Ask your question:");
     }
-    bot.sendMessage(chatId, "🤖 Ask your question:");
     awaitingOrder.delete(chatId);
   }
 
   bot.answerCallbackQuery(q.id);
 });
 
-// ================= MESSAGE HANDLER =================
+/* ================= MESSAGE HANDLER ================= */
 bot.on("message", async (msg) => {
   const chatId = msg.chat.id;
 
-  // Ignore commands
+  if (!msg.text) return;
   if (msg.text.startsWith("/")) return;
 
-  // ORDER FLOW
+  /* ===== ORDER FLOW ===== */
   if (awaitingOrder.has(chatId)) {
     awaitingOrder.delete(chatId);
 
@@ -119,29 +122,46 @@ bot.on("message", async (msg) => {
         // User confirmation
         bot.sendMessage(
           chatId,
-          "✅ *Order received!* We’ll contact you shortly.",
-          { parse_mode: "Markdown" }
+          "✅ Order received! We’ll contact you shortly."
         );
 
-        // Admin notifications
+        // Admin notifications (NO parse_mode – SAFE)
         admins.forEach((adminId) => {
           bot.sendMessage(
             adminId,
-            "📦 *NEW ORDER*\n\n" +
-            `🆔 Order ID: ${orderId}\n` +
-            `👤 User: @${msg.from.username || "unknown"}\n` +
-            `🧾 Message:\n${msg.text}`,
-            { parse_mode: "Markdown" }
+            "📦 NEW ORDER RECEIVED\n\n" +
+            `Order ID: ${orderId}\n` +
+            `User: @${msg.from.username || "unknown"}\n\n` +
+            "Message:\n" +
+            msg.text
           ).catch(err => {
             console.error("❌ Failed to DM admin:", adminId, err.message);
           });
         });
       }
     );
+    return;
+  }
+
+  /* ===== AI FLOW ===== */
+  if (openai) {
+    try {
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "system", content: "You are Brian Tech support assistant." },
+          { role: "user", content: msg.text }
+        ]
+      });
+
+      bot.sendMessage(chatId, response.choices[0].message.content);
+    } catch {
+      bot.sendMessage(chatId, "❌ AI error. Try again later.");
+    }
   }
 });
 
-// ================= ADMIN VIEW =================
+/* ================= ADMIN VIEW ================= */
 bot.onText(/\/orders/, (msg) => {
   if (!admins.includes(msg.from.id)) {
     return bot.sendMessage(msg.chat.id, "❌ Access denied");
@@ -152,12 +172,12 @@ bot.onText(/\/orders/, (msg) => {
       return bot.sendMessage(msg.chat.id, "📭 No orders yet.");
     }
 
-    let text = "📦 *Latest Orders*\n\n";
+    let text = "📦 LATEST ORDERS\n\n";
     rows.forEach(o => {
       text += `#${o.id} @${o.username}\n${o.message}\n\n`;
     });
 
-    bot.sendMessage(msg.chat.id, text, { parse_mode: "Markdown" });
+    bot.sendMessage(msg.chat.id, text);
   });
 });
 
