@@ -2,7 +2,7 @@ const TelegramBot = require("node-telegram-bot-api");
 const data = require("./data");
 
 // 🔐 TOKEN FROM ENV (Pterodactyl / GitHub-safe)
-const TOKEN = process.env.BOT_TOKEN || "8535080161:AAG_-CtnDCiaqPP93wt7A1mMcpRUfgh55oo";
+const TOKEN = process.env.BOT_TOKEN || "";
 
 if (!TOKEN) {
   console.error("❌ BOT_TOKEN is missing");
