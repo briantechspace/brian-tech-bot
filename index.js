@@ -78,7 +78,7 @@ bot.onText(/\/start/, (msg) => {
     "👋 *Welcome to Brian Tech*\n\n" +
     "• Bots & Automation\n" +
     "• Web & Hosting\n" +
-    "• VPS & Panels\n\n" +
+    "• VPS & Pterodactyl\n\n" +
     "Choose an option 👇",
     { parse_mode: "Markdown", ...menu }
   );
@@ -104,16 +104,34 @@ bot.on("callback_query", async (q) => {
   bot.answerCallbackQuery(q.id);
 });
 
-// ================= ORDER SAVE =================
+// ================= ORDER SAVE + ADMIN ALERT =================
 function saveOrder(msg) {
   db.run(
     "INSERT INTO orders (user_id, username, message) VALUES (?, ?, ?)",
-    [msg.from.id, msg.from.username || "unknown", msg.text]
-  );
+    [msg.from.id, msg.from.username || "unknown", msg.text],
+    function () {
+      const orderId = this.lastID;
 
-  bot.sendMessage(
-    msg.chat.id,
-    "✅ Order received!\n\nWe’ll contact you shortly."
+      // Message to user
+      bot.sendMessage(
+        msg.chat.id,
+        "✅ *Order received!*\n\nWe’ll contact you shortly.",
+        { parse_mode: "Markdown" }
+      );
+
+      // Notify ALL admins
+      admins.forEach((adminId) => {
+        bot.sendMessage(
+          adminId,
+          "📦 *NEW ORDER RECEIVED*\n\n" +
+          `🆔 Order ID: ${orderId}\n` +
+          `👤 User: @${msg.from.username || "unknown"}\n` +
+          `🧾 Message:\n${msg.text}\n\n` +
+          `⏰ ${new Date().toLocaleString()}`,
+          { parse_mode: "Markdown" }
+        );
+      });
+    }
   );
 }
 
@@ -129,12 +147,12 @@ async function aiReply(msg) {
     });
 
     bot.sendMessage(msg.chat.id, response.choices[0].message.content);
-  } catch (err) {
+  } catch {
     bot.sendMessage(msg.chat.id, "❌ AI error, try again later.");
   }
 }
 
-// ================= ADMIN =================
+// ================= ADMIN VIEW =================
 bot.onText(/\/orders/, (msg) => {
   if (!admins.includes(msg.from.id)) {
     return bot.sendMessage(msg.chat.id, "❌ Access denied");
