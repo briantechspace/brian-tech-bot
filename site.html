@@ -1,0 +1,3553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BRIAN TECH - Modern technology solutions for web development, system installations, automation tools, consultancy, cyber services, and technical training in Kenya.">
+    <meta name="keywords" content="Brian Tech, Web Development Kenya, Pterodactyl, WhatsApp Bots, Cyber Services, Tech Training, VPS Hosting">
+    <meta name="author" content="Brian Tech">
+    <meta name="robots" content="index, follow">
+    
+    <!-- REPLACE THIS WITH YOUR ACTUAL ADSENSE PUBLISHER ID -->
+    <meta name="google-adsense-account" content="ca-pub-YOUR_ADSENSE_PUBLISHER_ID_HERE">
+    
+    <title>BRIAN TECH - Technology Solutions</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Calibri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AdSense Script (Add your actual publisher ID) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_PUBLISHER_ID_HERE"
+     crossorigin="anonymous"></script>
+    
+    <style>
+        /* ==================== CSS VARIABLES & RESET ==================== */
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --gold: #ffd700;
+            --orange: #ff6b35;
+            --green: #4ade80;
+            --blue: #3b82f6;
+            --light-green: #86efac;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --font-header: 'Calibri', 'Segoe UI', sans-serif;
+            --font-body: 'Georgia', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==================== BACKGROUND VIDEO ==================== */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        /* ==================== MATRIX RAIN CANVAS ==================== */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            display: none;
+        }
+
+        /* ==================== NEWS BANNER ==================== */
+        .news-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, var(--highlight), var(--orange));
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            z-index: 10000;
+            font-family: var(--font-header);
+            font-weight: bold;
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+
+        .news-banner.active {
+            display: block;
+        }
+
+        .news-banner .close-banner {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2rem;
+            background: rgba(0,0,0,0.2);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        /* ==================== HEADER & NAVIGATION ==================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: top 0.3s ease;
+        }
+
+        header.banner-active {
+            top: 45px;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-section img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-section h1 {
+            font-family: var(--font-header);
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Search Bar */
+        .search-container {
+            flex: 1;
+            max-width: 400px;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-container input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .search-container input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-container .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            margin-top: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1001;
+        }
+
+        .search-suggestions.active {
+            display: block;
+        }
+
+        .search-suggestion-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--glass-border);
+            transition: background 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-suggestion-item:hover {
+            background: var(--accent);
+        }
+
+        .search-suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-suggestion-item .category-tag {
+            font-size: 0.75rem;
+            color: var(--gold);
+            background: rgba(255, 215, 0, 0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 8px 12px;
+            font-family: var(--font-header);
+            font-size: 0.9rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover, nav a.active {
+            background: var(--accent);
+            color: var(--gold);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            padding: 8px 12px;
+        }
+
+        .cart-icon i {
+            font-size: 1.2rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--highlight);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-family: var(--font-header);
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--secondary);
+            padding: 20px;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
+            max-height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            padding: 15px;
+            border-radius: 8px;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        main {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        main.banner-active {
+            padding-top: 125px;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ==================== HOME PAGE ==================== */
+        .home-content {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .monitor-frame {
+            background: #1a1a1a;
+            border: 4px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            min-height: 150px;
+        }
+
+        .monitor-frame::before {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 20px;
+            background: #333;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .monitor-frame::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 10px;
+            background: #444;
+            border-radius: 5px;
+        }
+
+        .typing-text {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #ffd700;
+            min-height: 100px;
+            line-height: 1.6;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: #ffd700;
+            animation: blink 0.7s infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Music Toggle */
+        .music-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .music-toggle:hover {
+            background: var(--highlight);
+            transform: scale(1.1);
+        }
+
+        .music-toggle i {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        /* AI Assistant Banner */
+        .ai-banner {
+            position: fixed;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent), var(--highlight));
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 100;
+            display: none;
+            animation: pulse 2s infinite;
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.4);
+            border: 2px solid var(--gold);
+            font-family: var(--font-header);
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .ai-banner.show {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); box-shadow: 0 5px 20px rgba(233, 69, 96, 0.4); }
+            50% { transform: translateX(-50%) scale(1.05); box-shadow: 0 5px 30px rgba(233, 69, 96, 0.6); }
+        }
+
+        /* Scrolling Ticker */
+        .ticker-container {
+            width: 100%;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            margin-top: 80px;
+            position: relative;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll 60s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 40px;
+            font-family: var(--font-header);
+            font-size: 1rem;
+            color: var(--gold);
+        }
+
+        .ticker-item::after {
+            content: '•';
+            margin-left: 40px;
+            color: var(--highlight);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ==================== CATALOGUE & PRODUCTS ==================== */
+        .page-title {
+            font-family: var(--font-header);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            padding: 0 20px;
+        }
+
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .category-tab {
+            padding: 10px 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: var(--font-header);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .category-tab:hover, .category-tab.active {
+            background: var(--accent);
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .product-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--gold);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-family: var(--font-header);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .product-category {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.05);
+            padding: 3px 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .product-price {
+            font-family: var(--font-header);
+            font-size: 1.3rem;
+            color: var(--orange);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            font-family: var(--font-header);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-cart {
+            background: var(--blue);
+            color: white;
+        }
+
+        .btn-cart:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .btn-order {
+            background: var(--light-green);
+            color: #166534;
+        }
+
+        .btn-order:hover {
+            background: var(--green);
+            transform: translateY(-2px);
+        }
+
+        /* ==================== IMAGE MODAL ==================== */
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-modal.active {
+            display: flex;
+        }
+
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.3);
+        }
+
+        .image-modal .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            background: rgba(0,0,0,0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-modal .close-modal:hover {
+            color: var(--highlight);
+            background: rgba(0,0,0,0.8);
+        }
+
+        /* ==================== CART PAGE ==================== */
+        .cart-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover {
+            border-color: var(--gold);
+            transform: translateX(5px);
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-family: var(--font-header);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-category {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            background: rgba(255,255,255,0.05);
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .cart-item-price {
+            color: var(--orange);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .cart-item-remove {
+            background: var(--highlight);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-header);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .cart-item-remove:hover {
+            background: #c53030;
+            transform: scale(1.05);
+        }
+
+        .cart-summary {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .cart-total {
+            font-family: var(--font-header);
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .cart-total span:first-child {
+            color: var(--text-secondary);
+        }
+
+        .cart-total span:last-child {
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .cart-actions .btn {
+            padding: 15px 30px;
+            font-size: 1rem;
+        }
+
+        .btn-clear {
+            background: var(--highlight);
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #c53030;
+        }
+
+        .btn-checkout {
+            background: var(--green);
+            color: #166534;
+            flex: 2;
+        }
+
+        .btn-checkout:hover {
+            background: #22c55e;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-cart i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .empty-cart h2 {
+            font-family: var(--font-header);
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        /* ==================== PAYMENT METHODS ==================== */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .payment-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .payment-card img {
+            height: 60px;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
+
+        .payment-card h3 {
+            font-family: var(--font-header);
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+
+        .payment-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .payment-card .account-info {
+            background: var(--accent);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-family: monospace;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            width: 100%;
+            word-break: break-word;
+        }
+
+        /* ==================== ABOUT, PRIVACY, TERMS ==================== */
+        .content-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .content-section h2 {
+            font-family: var(--font-header);
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+
+        .content-section h3 {
+            font-family: var(--font-header);
+            font-size: 1.3rem;
+            color: var(--orange);
+            margin: 20px 0 10px;
+        }
+
+        .content-section p, .content-section li {
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            padding-left: 25px;
+        }
+
+        .content-section li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .content-section li::before {
+            content: "•";
+            color: var(--gold);
+            position: absolute;
+            left: -20px;
+        }
+
+        /* ==================== SCHOLAR-MD IFRAME ==================== */
+        .iframe-container {
+            width: 100%;
+            height: calc(100vh - 150px);
+            border-radius: 15px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .iframe-fallback {
+            text-align: center;
+            padding: 60px;
+            background: var(--glass-bg);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .iframe-fallback a {
+            color: var(--gold);
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: var(--accent);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .iframe-fallback a:hover {
+            background: var(--highlight);
+            transform: translateY(-2px);
+        }
+
+        /* ==================== SUPPORT & AI CHAT ==================== */
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            height: calc(100vh - 200px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: var(--accent);
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .chat-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+        }
+
+        .chat-header h3 {
+            font-family: var(--font-header);
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+
+        .chat-header p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 15px 20px;
+            border-radius: 15px;
+            animation: messageIn 0.3s ease;
+            word-wrap: break-word;
+        }
+
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-message.user {
+            background: var(--blue);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-message.bot {
+            background: var(--secondary);
+            color: var(--text-primary);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .chat-message.typing {
+            background: var(--secondary);
+            padding: 10px 20px;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 5px 0;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+            padding: 20px;
+            border-top: 1px solid var(--glass-border);
+            background: var(--accent);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            background: var(--secondary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .chat-input input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .chat-input button {
+            background: var(--gold);
+            color: var(--primary);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: var(--font-header);
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-input button:hover {
+            background: var(--orange);
+            transform: translateY(-2px);
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background: var(--secondary);
+            border-top: 1px solid var(--glass-border);
+            padding: 50px 20px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: var(--font-header);
+            font-size: 1.2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: var(--accent);
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--primary);
+            transform: translateY(-3px) rotate(5deg);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ==================== ADMIN PANEL ==================== */
+        .admin-login {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .login-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: var(--shadow);
+        }
+
+        .login-card h2 {
+            font-family: var(--font-header);
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--gold);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-family: var(--font-header);
+            color: var(--text-secondary);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            background: var(--secondary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--gold);
+            color: var(--primary);
+            border: none;
+            border-radius: 10px;
+            font-family: var(--font-header);
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn:hover {
+            background: var(--orange);
+            transform: translateY(-2px);
+        }
+
+        .login-error {
+            color: var(--highlight);
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+            font-family: var(--font-header);
+            padding: 10px;
+            background: rgba(233, 69, 96, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+            min-height: 100vh;
+            background: var(--primary);
+        }
+
+        .admin-dashboard.active {
+            display: block;
+        }
+
+        .admin-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: var(--secondary);
+            border-right: 1px solid var(--glass-border);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .admin-sidebar h2 {
+            font-family: var(--font-header);
+            color: var(--gold);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .admin-nav a:hover, .admin-nav a.active {
+            background: var(--accent);
+            color: var(--gold);
+            transform: translateX(5px);
+        }
+
+        .admin-main {
+            margin-left: 250px;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .admin-header h1 {
+            font-family: var(--font-header);
+            color: var(--text-primary);
+            font-size: 1.8rem;
+        }
+
+        .admin-logout {
+            background: var(--highlight);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-header);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-logout:hover {
+            background: #c53030;
+            transform: translateY(-2px);
+        }
+
+        .admin-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .admin-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .admin-card h3 {
+            font-family: var(--font-header);
+            color: var(--gold);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .admin-form-group {
+            margin-bottom: 15px;
+        }
+
+        .admin-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-family: var(--font-header);
+            font-weight: bold;
+        }
+
+        .admin-form-group input,
+        .admin-form-group select,
+        .admin-form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            background: var(--secondary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .admin-form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .admin-form-group input:focus,
+        .admin-form-group select:focus,
+        .admin-form-group textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .admin-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-header);
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-btn-primary {
+            background: var(--gold);
+            color: var(--primary);
+        }
+
+        .admin-btn-primary:hover {
+            background: var(--orange);
+            transform: translateY(-2px);
+        }
+
+        .admin-btn-danger {
+            background: var(--highlight);
+            color: white;
+        }
+
+        .admin-btn-danger:hover {
+            background: #c53030;
+            transform: translateY(-2px);
+        }
+
+        .admin-btn-success {
+            background: var(--green);
+            color: #166534;
+        }
+
+        .admin-btn-success:hover {
+            background: #22c55e;
+            transform: translateY(-2px);
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+            vertical-align: middle;
+        }
+
+        .admin-table th {
+            font-family: var(--font-header);
+            color: var(--gold);
+            background: var(--accent);
+            font-weight: bold;
+        }
+
+        .admin-table tr:hover {
+            background: var(--glass-bg);
+        }
+
+        .admin-table img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--accent);
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        .toggle-slider::before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background: var(--green);
+        }
+
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(30px);
+        }
+
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 1024px) {
+            .admin-sidebar {
+                width: 200px;
+            }
+            .admin-main {
+                margin-left: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+
+            .search-container {
+                order: 3;
+                max-width: 100%;
+                width: 100%;
+                margin-top: 10px;
+                min-width: unset;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .glass-card {
+                padding: 25px;
+            }
+
+            .typing-text {
+                font-size: 0.95rem;
+            }
+
+            .admin-sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .admin-main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .cart-item img {
+                width: 150px;
+                height: 150px;
+            }
+
+            .payment-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .ai-banner {
+                width: 90%;
+                white-space: normal;
+                text-align: center;
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-section h1 {
+                font-size: 1.2rem;
+            }
+
+            .logo-section img {
+                height: 40px;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-buttons {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .chat-container {
+                height: calc(100vh - 150px);
+            }
+
+            .glass-card {
+                padding: 20px;
+            }
+
+            .monitor-frame {
+                padding: 15px;
+            }
+
+            .monitor-frame::before,
+            .monitor-frame::after {
+                display: none;
+            }
+
+            .category-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+
+            .category-tab {
+                flex-shrink: 0;
+            }
+
+            .payment-card {
+                padding: 20px;
+            }
+        }
+
+        /* TV and Large Screens */
+        @media (min-width: 1920px) {
+            .container {
+                max-width: 1600px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 30px;
+            }
+
+            .page-title {
+                font-size: 3rem;
+            }
+
+            .product-card {
+                border-radius: 20px;
+            }
+
+            .product-image {
+                height: 280px;
+            }
+
+            .glass-card {
+                max-width: 1000px;
+                padding: 50px;
+            }
+
+            .header-container {
+                padding: 15px 40px;
+            }
+
+            .chat-container {
+                max-width: 1000px;
+                height: calc(100vh - 250px);
+            }
+        }
+
+        /* ==================== UTILITY CLASSES ==================== */
+        .text-center { text-align: center; }
+        .text-gold { color: var(--gold); }
+        .text-orange { color: var(--orange); }
+        .mt-20 { margin-top: 20px; }
+        .mb-20 { margin-bottom: 20px; }
+        .hidden { display: none !important; }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--green);
+            color: #166534;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-family: var(--font-header);
+            z-index: 10000;
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-background" id="videoBg">
+        <video autoplay muted loop playsinline id="bgVideo">
+            <source src="https://files.catbox.moe/czfuv3.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
+    <!-- Matrix Rain Canvas (for Scholar-MD) -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://files.catbox.moe/pllx96.mp4" type="audio/mp4">
+    </audio>
+
+    <!-- News Banner -->
+    <div class="news-banner" id="newsBanner">
+        <span id="bannerContent">Welcome to Brian Tech! Check out our latest offers.</span>
+        <span class="close-banner" onclick="closeBanner()">×</span>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+        <span class="close-modal" onclick="closeImageModal()">×</span>
+        <img id="modalImage" src="" alt="Product Image">
+    </div>
+
+    <!-- ==================== MAIN WEBSITE ==================== -->
+    <div id="mainSite">
+        <!-- Header -->
+        <header id="mainHeader">
+            <div class="header-container">
+                <div class="logo-section">
+                    <img src="https://files.catbox.moe/5721tn.png" alt="Brian Tech Logo">
+                    <h1>BRIAN TECH</h1>
+                </div>
+
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search products, services, categories..." oninput="handleSearch(this.value)">
+                    <i class="fas fa-search search-icon"></i>
+                    <div class="search-suggestions" id="searchSuggestions"></div>
+                </div>
+
+                <nav id="desktopNav">
+                    <a href="#" onclick="showPage('home')" class="active"><i class="fas fa-home"></i> Home</a>
+                    <a href="#" onclick="showPage('catalogue')"><i class="fas fa-box"></i> Catalogue</a>
+                    <a href="#" onclick="showPage('categories')"><i class="fas fa-folder"></i> Categories</a>
+                    <a href="#" onclick="showPage('cart')" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <a href="#" onclick="showPage('payment')"><i class="fas fa-credit-card"></i> Payment</a>
+                    <a href="#" onclick="showPage('scholar')"><i class="fas fa-graduation-cap"></i> Scholar-MD</a>
+                    <a href="#" onclick="showPage('support')"><i class="fas fa-headset"></i> Support</a>
+                    <a href="#" onclick="showPage('about')"><i class="fas fa-info-circle"></i> About</a>
+                </nav>
+
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <nav class="mobile-nav" id="mobileNav">
+                <a href="#" onclick="showPage('home'); toggleMobileMenu();"><i class="fas fa-home"></i> Home</a>
+                <a href="#" onclick="showPage('catalogue'); toggleMobileMenu();"><i class="fas fa-box"></i> Catalogue</a>
+                <a href="#" onclick="showPage('categories'); toggleMobileMenu();"><i class="fas fa-folder"></i> Categories</a>
+                <a href="#" onclick="showPage('cart'); toggleMobileMenu();"><i class="fas fa-shopping-cart"></i> Cart (<span id="mobileCartCount">0</span>)</a>
+                <a href="#" onclick="showPage('payment'); toggleMobileMenu();"><i class="fas fa-credit-card"></i> Payment Methods</a>
+                <a href="#" onclick="showPage('scholar'); toggleMobileMenu();"><i class="fas fa-graduation-cap"></i> Scholar-MD</a>
+                <a href="#" onclick="showPage('support'); toggleMobileMenu();"><i class="fas fa-headset"></i> Support</a>
+                <a href="#" onclick="showPage('about'); toggleMobileMenu();"><i class="fas fa-info-circle"></i> About Us</a>
+                <a href="#" onclick="showPage('privacy'); toggleMobileMenu();"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+                <a href="#" onclick="showPage('terms'); toggleMobileMenu();"><i class="fas fa-file-contract"></i> Terms & Conditions</a>
+            </nav>
+        </header>
+
+        <main id="mainContent">
+            <!-- HOME PAGE -->
+            <div class="page active" id="page-home">
+                <div class="home-content">
+                    <div class="glass-card">
+                        <div class="music-toggle" onclick="toggleMusic()" title="Toggle Background Music">
+                            <i class="fas fa-volume-mute" id="musicIcon"></i>
+                        </div>
+                        <div class="monitor-frame">
+                            <div class="typing-text" id="typingText"></div>
+                            <span class="cursor"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Assistant Banner -->
+                <div class="ai-banner" id="aiBanner" onclick="showPage('support')">
+                    <i class="fas fa-robot"></i>
+                    <span>Hello! Having problems? I'm Brian AI Assistant - Chat with me!</span>
+                </div>
+
+                <!-- Scrolling Ticker -->
+                <div class="ticker-container">
+                    <div class="ticker-content" id="tickerContent">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATALOGUE PAGE -->
+            <div class="page" id="page-catalogue">
+                <div class="container">
+                    <h1 class="page-title">Our Products & Services</h1>
+                    
+                    <div class="category-tabs" id="categoryTabs">
+                        <button class="category-tab active" onclick="filterProducts('all')">All</button>
+                    </div>
+
+                    <div class="products-grid" id="productsGrid">
+                        <!-- Products will be loaded by JavaScript -->
+                        <div class="text-center" style="grid-column: 1/-1; padding: 40px;">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--gold);"></i>
+                            <p>Loading products...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORIES PAGE -->
+            <div class="page" id="page-categories">
+                <div class="container">
+                    <h1 class="page-title">Browse Categories</h1>
+                    <div class="products-grid" id="categoriesGrid">
+                        <!-- Categories will be loaded by JavaScript -->
+                        <div class="text-center" style="grid-column: 1/-1; padding: 40px;">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--gold);"></i>
+                            <p>Loading categories...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CART PAGE -->
+            <div class="page" id="page-cart">
+                <div class="container cart-container">
+                    <h1 class="page-title">Your Shopping Cart</h1>
+                    <div id="cartItems">
+                        <!-- Cart items will be loaded by JavaScript -->
+                    </div>
+                    <div class="cart-summary" id="cartSummary" style="display: none;">
+                        <div class="cart-total">
+                            <span>Total Amount:</span>
+                            <span id="cartTotal">KES 0</span>
+                        </div>
+                        <div class="cart-actions">
+                            <button class="btn btn-clear" onclick="clearCart()"><i class="fas fa-trash"></i> Clear Cart</button>
+                            <button class="btn btn-checkout" onclick="checkout()"><i class="fab fa-whatsapp"></i> Order via WhatsApp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAYMENT METHODS PAGE -->
+            <div class="page" id="page-payment">
+                <div class="container">
+                    <h1 class="page-title">Payment Methods</h1>
+                    <div class="payment-grid">
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/M-PESA_LOGO-01.svg/1200px-M-PESA_LOGO-01.svg.png" alt="M-Pesa">
+                            <h3>M-Pesa Till Number</h3>
+                            <p>Direct till payment</p>
+                            <div class="account-info">6955715</div>
+                        </div>
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/M-PESA_LOGO-01.svg/1200px-M-PESA_LOGO-01.svg.png" alt="M-Pesa Paybill">
+                            <h3>M-Pesa Paybill</h3>
+                            <p>Business number payment</p>
+                            <div class="account-info">
+                                <strong>Paybill:</strong> 625625<br>
+                                <strong>Account:</strong> 20177486<br>
+                                <strong>Name:</strong> Brian Tech
+                            </div>
+                        </div>
+                        <div class="payment-card">
+                            <img src="https://www.opera.com/media/mini/prd/img/mini-pay-logo.a6f75cbe0eea.png" alt="MiniPay">
+                            <h3>MiniPay</h3>
+                            <p>Pay securely with Opera MiniPay</p>
+                        </div>
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1200px-PayPal.svg.png" alt="PayPal">
+                            <h3>PayPal</h3>
+                            <p>International payments accepted</p>
+                        </div>
+                        <div class="payment-card">
+                            <img src="https://www.eversend.co/wp-content/uploads/2023/10/eversend-logo.svg" alt="Eversend">
+                            <h3>Eversend</h3>
+                            <p>Multi-currency wallet payments</p>
+                        </div>
+                        <div class="payment-card">
+                            <img src="https://www.mukuru.com/wp-content/uploads/2023/03/Mukuru-Logo.svg" alt="Mukuru">
+                            <h3>Mukuru</h3>
+                            <p>Money transfer service</p>
+                        </div>
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1200px-Mastercard-logo.svg.png" alt="Credit Cards">
+                            <h3>Credit Cards</h3>
+                            <p>Visa, Mastercard accepted</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCHOLAR-MD PAGE -->
+            <div class="page" id="page-scholar">
+                <div class="container">
+                    <h1 class="page-title">Scholar-MD</h1>
+                    <div class="iframe-container">
+                        <iframe src="https://scholar-md.onrender.com" id="scholarFrame" onload="scholarLoaded()" onerror="scholarError()"></iframe>
+                    </div>
+                    <div class="iframe-fallback" id="scholarFallback" style="display: none;">
+                        <p>Unable to load Scholar-MD inline.</p>
+                        <a href="https://scholar-md.onrender.com" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Click here to open Scholar-MD in a new tab
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUPPORT PAGE -->
+            <div class="page" id="page-support">
+                <div class="container">
+                    <h1 class="page-title">Brian AI Assistant</h1>
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <img src="https://files.catbox.moe/5721tn.png" alt="Brian AI">
+                            <div>
+                                <h3>Brian AI Assistant</h3>
+                                <p><i class="fas fa-circle" style="color: #4ade80; font-size: 0.8rem;"></i> Online - Ready to help</p>
+                            </div>
+                        </div>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="chat-message bot">
+                                Hello! 👋 I'm Brian AI Assistant. I'm here to help you navigate our website, answer questions about our products and services, and assist you with any inquiries. How can I help you today?
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="handleChatKeypress(event)">
+                            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i> Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABOUT US PAGE -->
+            <div class="page" id="page-about">
+                <div class="container">
+                    <h1 class="page-title">About Us</h1>
+                    <div class="content-section">
+                        <h2>Who We Are</h2>
+                        <p>Brian Tech is a modern technology solutions brand founded and led by <strong>Brian</strong>, a skilled developer passionate about ethical and responsible technology use. The company provides web development, system installations, automation tools, consultancy, cyber services, and practical technical training for individuals and businesses.</p>
+                        <p>Brian Tech focuses on reliability, clarity, and professionalism while empowering users with real-world digital skills and solutions.</p>
+                        
+                        <h3>Our Mission</h3>
+                        <p>To provide accessible, ethical, and high-quality technology solutions that empower individuals and businesses to thrive in the digital age.</p>
+                        
+                        <h3>Our Vision</h3>
+                        <p>To become East Africa's leading provider of innovative technology solutions and training, known for integrity, quality, and customer satisfaction.</p>
+                        
+                        <h3>What We Offer</h3>
+                        <ul>
+                            <li><strong>Web Development:</strong> Custom websites and web applications</li>
+                            <li><strong>System Installations:</strong> Pterodactyl panels, Ubuntu setup, and more</li>
+                            <li><strong>Automation Tools:</strong> WhatsApp bots, bug bots, and scripts</li>
+                            <li><strong>Technical Training:</strong> Computer packages and tech skills classes</li>
+                            <li><strong>Cyber Services:</strong> KRA, HELB, job applications, and document services</li>
+                            <li><strong>Consultancy:</strong> Technical guidance and problem-solving</li>
+                        </ul>
+                        
+                        <h3>Contact Us</h3>
+                        <p>Have questions or need assistance? Reach out to us directly!</p>
+                        <a href="https://wa.me/254768116434" target="_blank" class="btn btn-order" style="display: inline-flex; align-items: center; gap: 10px; margin-top: 15px; padding: 12px 25px;">
+                            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRIVACY POLICY PAGE -->
+            <div class="page" id="page-privacy">
+                <div class="container">
+                    <h1 class="page-title">Privacy Policy</h1>
+                    <div class="content-section">
+                        <h2>Your Privacy Matters</h2>
+                        <p>At Brian Tech, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, and safeguard your data.</p>
+                        
+                        <h3>1. Information We Collect</h3>
+                        <p>We collect minimal information necessary to provide our services:</p>
+                        <ul>
+                            <li><strong>Session Data:</strong> We use session storage for cart functionality. This data is temporary and is cleared when you close your browser tab.</li>
+                            <li><strong>Contact Information:</strong> When you reach out via WhatsApp for orders or inquiries, we receive your phone number and messages.</li>
+                            <li><strong>Payment Information:</strong> All payments are processed manually through M-Pesa, PayPal, and other third-party services. We do not store payment credentials.</li>
+                        </ul>
+                        
+                        <h3>2. How We Use Your Information</h3>
+                        <ul>
+                            <li>To process and fulfill your orders</li>
+                            <li>To communicate with you about your purchases</li>
+                            <li>To provide customer support</li>
+                            <li>To improve our services</li>
+                        </ul>
+                        
+                        <h3>3. Cookies and Tracking</h3>
+                        <p>We do not use advertising cookies or third-party tracking services. Our website uses only essential session storage for cart functionality.</p>
+                        
+                        <h3>4. Data Security</h3>
+                        <p>We implement industry-standard security measures to protect your information:</p>
+                        <ul>
+                            <li>Secure storage with hashed credentials</li>
+                            <li>Encrypted communications via HTTPS</li>
+                            <li>Regular security audits</li>
+                        </ul>
+                        
+                        <h3>5. Third-Party Services</h3>
+                        <p>We may use third-party services for payment processing. These services have their own privacy policies, and we encourage you to review them.</p>
+                        
+                        <h3>6. Data Retention</h3>
+                        <p>Session data is cleared when you close your browser. Communication records are retained for customer service purposes.</p>
+                        
+                        <h3>7. Your Rights</h3>
+                        <p>You have the right to:</p>
+                        <ul>
+                            <li>Request access to your personal data</li>
+                            <li>Request correction of inaccurate data</li>
+                            <li>Request deletion of your data</li>
+                        </ul>
+                        
+                        <h3>8. Governing Law</h3>
+                        <p>This Privacy Policy is governed by the laws and data protection practices of Kenya.</p>
+                        
+                        <h3>9. Contact Us</h3>
+                        <p>For privacy-related inquiries, contact us via WhatsApp: <a href="https://wa.me/254768116434">+254 768 116 434</a></p>
+                        
+                        <p><em>Last updated: January 2026</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TERMS AND CONDITIONS PAGE -->
+            <div class="page" id="page-terms">
+                <div class="container">
+                    <h1 class="page-title">Terms and Conditions</h1>
+                    <div class="content-section">
+                        <h2>Terms of Service</h2>
+                        <p>By accessing and using the Brian Tech website and services, you agree to be bound by these Terms and Conditions. Please read them carefully before using our services.</p>
+                        
+                        <h3>1. Educational Purpose Only</h3>
+                        <p>All tools, software, scripts, and resources provided by Brian Tech are strictly for <strong>educational, research, testing, and legitimate purposes only</strong>. Any misuse of products and services is not supported by Brian Tech. Users are solely responsible for ensuring their use complies with applicable laws and regulations.</p>
+                        
+                        <h3>2. Payment Terms</h3>
+                        <ul>
+                            <li>All payments are processed manually through M-Pesa, PayPal, and other accepted methods.</li>
+                            <li>Prices are listed in Kenyan Shillings (KES).</li>
+                            <li>Payment must be confirmed before service delivery.</li>
+                            <li>Refunds are handled on a case-by-case basis.</li>
+                        </ul>
+                        
+                        <h3>3. No Customer Accounts</h3>
+                        <p>Brian Tech does not offer customer account registration. All transactions are processed directly via WhatsApp communication.</p>
+                        
+                        <h3>4. Training and Certificates</h3>
+                        <p>Brian Tech provides practical technical training. Please note that <strong>no certificates</strong> are issued upon completion of training courses. Training is provided for skill development and practical knowledge only.</p>
+                        
+                        <h3>5. Intellectual Property</h3>
+                        <p>All content, logos, designs, and materials on this website are the property of Brian Tech. Unauthorized reproduction or distribution is prohibited.</p>
+                        
+                        <h3>6. Limitation of Liability</h3>
+                        <p>Brian Tech shall not be liable for:</p>
+                        <ul>
+                            <li>Any indirect, incidental, or consequential damages</li>
+                            <li>Loss of data or business interruption</li>
+                            <li>Misuse of tools or services by users</li>
+                            <li>Third-party service failures</li>
+                        </ul>
+                        
+                        <h3>7. Service Availability</h3>
+                        <p>We strive to maintain service availability but do not guarantee uninterrupted access. Services may be modified or discontinued at our discretion.</p>
+                        
+                        <h3>8. User Responsibilities</h3>
+                        <p>Users agree to:</p>
+                        <ul>
+                            <li>Use services for legal purposes only</li>
+                            <li>Not engage in harmful or malicious activities</li>
+                            <li>Respect intellectual property rights</li>
+                            <li>Provide accurate information when making orders</li>
+                        </ul>
+                        
+                        <h3>9. Modifications</h3>
+                        <p>Brian Tech reserves the right to modify these terms at any time. Continued use of our services constitutes acceptance of modified terms.</p>
+                        
+                        <h3>10. Governing Law</h3>
+                        <p>These Terms and Conditions are governed by and construed in accordance with the laws of Kenya. Any disputes shall be resolved under Kenyan jurisdiction.</p>
+                        
+                        <h3>11. Contact</h3>
+                        <p>For questions about these terms, contact us via WhatsApp: <a href="https://wa.me/254768116434">+254 768 116 434</a></p>
+                        
+                        <p><em>Last updated: January 2026</em></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#" onclick="showPage('home')"><i class="fas fa-chevron-right"></i> Home</a>
+                    <a href="#" onclick="showPage('catalogue')"><i class="fas fa-chevron-right"></i> Catalogue</a>
+                    <a href="#" onclick="showPage('categories')"><i class="fas fa-chevron-right"></i> Categories</a>
+                    <a href="#" onclick="showPage('payment')"><i class="fas fa-chevron-right"></i> Payment Methods</a>
+                    <a href="#" onclick="showPage('scholar')"><i class="fas fa-chevron-right"></i> Scholar-MD</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Information</h4>
+                    <a href="#" onclick="showPage('about')"><i class="fas fa-chevron-right"></i> About Us</a>
+                    <a href="#" onclick="showPage('support')"><i class="fas fa-chevron-right"></i> Support</a>
+                    <a href="#" onclick="showPage('privacy')"><i class="fas fa-chevron-right"></i> Privacy Policy</a>
+                    <a href="#" onclick="showPage('terms')"><i class="fas fa-chevron-right"></i> Terms & Conditions</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <a href="https://wa.me/254768116434" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp: +254 768 116 434</a>
+                    <a href="mailto:info@briantechspace.co.ke"><i class="fas fa-envelope"></i> info@briantechspace.co.ke</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://tiktok.com/@briantechspace" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://whatsapp.com/channel/0029VbC173IDDmFVlhcSOZ0Q" target="_blank" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.youtube.com/@mr_brian_talks" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Brian Tech © 2026 | All Rights Reserved</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ==================== ADMIN PANEL ==================== -->
+    <div id="adminPanel" style="display: none;">
+        <!-- Admin Login -->
+        <div class="admin-login" id="adminLogin">
+            <div class="login-card">
+                <img src="https://files.catbox.moe/5721tn.png" alt="Brian Tech" style="display: block; margin: 0 auto 20px; height: 60px;">
+                <h2>Admin Panel Login</h2>
+                <form onsubmit="adminLogin(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Username</label>
+                        <input type="text" id="adminUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="adminPassword" required>
+                    </div>
+                    <button type="submit" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <p class="login-error" id="loginError">Invalid credentials. Please try again.</p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div class="admin-dashboard" id="adminDashboard">
+            <aside class="admin-sidebar">
+                <h2><i class="fas fa-cogs"></i> Admin Panel</h2>
+                <nav class="admin-nav">
+                    <a href="#" onclick="showAdminSection('dashboard')" class="active"><i class="fas fa-home"></i> Dashboard</a>
+                    <a href="#" onclick="showAdminSection('products')"><i class="fas fa-box"></i> Products</a>
+                    <a href="#" onclick="showAdminSection('categories')"><i class="fas fa-folder"></i> Categories</a>
+                    <a href="#" onclick="showAdminSection('banner')"><i class="fas fa-bullhorn"></i> News Banner</a>
+                    <a href="#" onclick="showAdminSection('settings')"><i class="fas fa-cog"></i> Settings</a>
+                </nav>
+            </aside>
+
+            <main class="admin-main">
+                <div class="admin-header">
+                    <h1 id="adminPageTitle">Dashboard</h1>
+                    <button class="admin-logout" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+
+                <!-- Dashboard Section -->
+                <div class="admin-section active" id="section-dashboard">
+                    <div class="admin-form-row">
+                        <div class="admin-card">
+                            <h3><i class="fas fa-box"></i> Total Products</h3>
+                            <p style="font-size: 2rem; color: var(--gold);" id="totalProducts">0</p>
+                        </div>
+                        <div class="admin-card">
+                            <h3><i class="fas fa-folder"></i> Categories</h3>
+                            <p style="font-size: 2rem; color: var(--gold);" id="totalCategories">0</p>
+                        </div>
+                        <div class="admin-card">
+                            <h3><i class="fas fa-eye"></i> Site Status</h3>
+                            <p style="font-size: 1.5rem; color: var(--green);">Online</p>
+                        </div>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Quick Actions</h3>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+                            <button class="admin-btn admin-btn-primary" onclick="showAdminSection('products')"><i class="fas fa-plus"></i> Add Product</button>
+                            <button class="admin-btn admin-btn-primary" onclick="showAdminSection('categories')"><i class="fas fa-folder-plus"></i> Manage Categories</button>
+                            <button class="admin-btn admin-btn-success" onclick="restoreDefaults()"><i class="fas fa-undo"></i> Restore Defaults</button>
+                            <a href="/" class="admin-btn admin-btn-primary" target="_blank"><i class="fas fa-external-link-alt"></i> View Site</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Section -->
+                <div class="admin-section" id="section-products">
+                    <div class="admin-card">
+                        <h3><i class="fas fa-plus"></i> Add New Product</h3>
+                        <form onsubmit="addProduct(event)">
+                            <div class="admin-form-row">
+                                <div class="admin-form-group">
+                                    <label>Product Name</label>
+                                    <input type="text" id="newProductName" required>
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Category</label>
+                                    <select id="newProductCategory" required></select>
+                                </div>
+                            </div>
+                            <div class="admin-form-row">
+                                <div class="admin-form-group">
+                                    <label>Price (KES)</label>
+                                    <input type="text" id="newProductPrice" required placeholder="e.g., 500 or 1000-2000">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Image URL</label>
+                                    <input type="url" id="newProductImage" placeholder="https://...">
+                                </div>
+                            </div>
+                            <div class="admin-form-group">
+                                <label>Description</label>
+                                <textarea id="newProductDesc" placeholder="Brief description of the product..."></textarea>
+                            </div>
+                            <button type="submit" class="admin-btn admin-btn-primary"><i class="fas fa-plus"></i> Add Product</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3><i class="fas fa-edit"></i> Manage Products</h3>
+                        <div style="overflow-x: auto;">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminProductsTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories Section -->
+                <div class="admin-section" id="section-categories">
+                    <div class="admin-card">
+                        <h3><i class="fas fa-folder-plus"></i> Add New Category</h3>
+                        <form onsubmit="addCategory(event)">
+                            <div class="admin-form-row">
+                                <div class="admin-form-group">
+                                    <label>Category Name</label>
+                                    <input type="text" id="newCategoryName" required>
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Icon (Font Awesome class)</label>
+                                    <input type="text" id="newCategoryIcon" placeholder="fas fa-laptop">
+                                    <small style="color: var(--text-secondary);">Example: fas fa-laptop, fab fa-whatsapp</small>
+                                </div>
+                            </div>
+                            <button type="submit" class="admin-btn admin-btn-primary"><i class="fas fa-plus"></i> Add Category</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3><i class="fas fa-folder-open"></i> Manage Categories</h3>
+                        <div id="adminCategoriesList"></div>
+                    </div>
+                </div>
+
+                <!-- Banner Section -->
+                <div class="admin-section" id="section-banner">
+                    <div class="admin-card">
+                        <h3><i class="fas fa-bullhorn"></i> News Banner Settings</h3>
+                        <div class="admin-form-group">
+                            <label>Banner Status</label>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="bannerToggle" onchange="toggleBanner()">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span id="bannerStatus">Off</span>
+                            </div>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Banner Content</label>
+                            <textarea id="bannerText" placeholder="Enter banner message..." rows="3">Welcome to Brian Tech! Check out our latest offers.</textarea>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Banner Media (optional)</label>
+                            <input type="url" id="bannerMedia" placeholder="Image or video URL">
+                        </div>
+                        <button class="admin-btn admin-btn-primary" onclick="updateBanner()"><i class="fas fa-save"></i> Save Banner Settings</button>
+                    </div>
+                </div>
+
+                <!-- Settings Section -->
+                <div class="admin-section" id="section-settings">
+                    <div class="admin-card">
+                        <h3><i class="fas fa-cog"></i> Site Settings</h3>
+                        <div class="admin-form-group">
+                            <label>Site Title</label>
+                            <input type="text" id="settingSiteTitle" value="BRIAN TECH">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Copyright Text</label>
+                            <input type="text" id="settingCopyright" value="Brian Tech © 2026">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>WhatsApp Number</label>
+                            <input type="text" id="settingWhatsApp" value="254768116434">
+                        </div>
+                        <button class="admin-btn admin-btn-primary" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Restore all products, categories, and settings to their original state.</p>
+                        <button class="admin-btn admin-btn-danger" onclick="restoreDefaults()"><i class="fas fa-exclamation-triangle"></i> Restore Default Data</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // ==================== DATA & STATE ====================
+        const DEFAULT_PRODUCTS = [
+            // WhatsApp
+            { id: 1, name: "WhatsApp Bot Hosting", category: "WhatsApp", price: "50", image: "https://files.catbox.moe/ks8qw6.png", description: "Host your WhatsApp bot reliably" },
+            { id: 2, name: "WhatsApp Unban Tool", category: "WhatsApp", price: "100", image: "https://files.catbox.moe/9v5kad.png", description: "Recover banned WhatsApp accounts" },
+            { id: 3, name: "Ban Checker APK", category: "WhatsApp", price: "100", image: "https://files.catbox.moe/mlbcz4.png", description: "Check if your number is banned" },
+            
+            // Pterodactyl
+            { id: 4, name: "Pterodactyl Panel Installation", category: "Pterodactyl", price: "800", image: "https://files.catbox.moe/ek58hr.png", description: "Full installation and setup" },
+            { id: 5, name: "Pterodactyl Panel Server", category: "Pterodactyl", price: "100", image: "https://files.catbox.moe/r3klrt.png", description: "Per server hosting" },
+            { id: 6, name: "Admin Panel Access", category: "Pterodactyl", price: "400", image: "https://files.catbox.moe/m13cat.png", description: "Full admin access" },
+            
+            // Safaricom
+            { id: 7, name: "Exchange Airtime for Money", category: "Safaricom", price: "60% back", image: "https://files.catbox.moe/3puq3e.png", description: "Convert airtime to cash" },
+            
+            // Telegram
+            { id: 8, name: "Telegram Premium APK", category: "Telegram", price: "200", image: "https://files.catbox.moe/a1xafz.jpg", description: "Premium Telegram features" },
+            
+            // Developers
+            { id: 9, name: "Bug Bot Scripts", category: "Developers", price: "300", image: "https://files.catbox.moe/t2hu4p.png", description: "Custom bot scripts" },
+            
+            // Web Design
+            { id: 10, name: "Web Development", category: "Web Design & Development", price: "10000-30000", image: "https://files.catbox.moe/yl6vt8.png", description: "Full website development" },
+            { id: 11, name: "Web Design", category: "Web Design & Development", price: "3000-5000", image: "https://files.catbox.moe/yl6vt8.png", description: "Website design services" },
+            
+            // Installation Services
+            { id: 12, name: "Ubuntu Installation", category: "Installation & Tutorial", price: "1000", image: "https://files.catbox.moe/bqsbq8.png", description: "Complete Ubuntu setup" },
+            { id: 13, name: "Tech Consultancy", category: "Installation & Tutorial", price: "200", image: "https://files.catbox.moe/ys31a9.png", description: "Expert tech guidance" },
+            
+            // Web Hosting Tutorials
+            { id: 14, name: "VPS Hosting Tutorial", category: "Web Hosting Tutorials", price: "200", image: "https://files.catbox.moe/xg53pi.png", description: "Learn VPS hosting" },
+            { id: 15, name: "Render Hosting Tutorial", category: "Web Hosting Tutorials", price: "150", image: "https://files.catbox.moe/xg53pi.png", description: "Deploy on Render" },
+            
+            // Hosting Tools
+            { id: 16, name: "VPS Server", category: "Hosting Tools", price: "800", image: "https://files.catbox.moe/xg53pi.png", description: "Virtual Private Server" },
+            
+            // Cyber Services - KRA
+            { id: 17, name: "KRA PIN Registration", category: "Cyber Services", price: "100", image: "https://upload.wikimedia.org/wikipedia/en/4/4e/Kenya_Revenue_Authority_Logo.png", description: "Register for KRA PIN" },
+            { id: 18, name: "KRA PIN Retrieval", category: "Cyber Services", price: "100", image: "https://upload.wikimedia.org/wikipedia/en/4/4e/Kenya_Revenue_Authority_Logo.png", description: "Recover lost PIN" },
+            { id: 19, name: "Update KRA Email/Phone", category: "Cyber Services", price: "100", image: "https://upload.wikimedia.org/wikipedia/en/4/4e/Kenya_Revenue_Authority_Logo.png", description: "Update contact details" },
+            { id: 20, name: "File KRA Nil Returns", category: "Cyber Services", price: "100", image: "https://upload.wikimedia.org/wikipedia/en/4/4e/Kenya_Revenue_Authority_Logo.png", description: "File nil tax returns" },
+            
+            // Cyber Services - Education
+            { id: 21, name: "KUCCPS Application", category: "Cyber Services", price: "200", image: "https://files.catbox.moe/5721tn.png", description: "University course application" },
+            { id: 22, name: "HELB Loan Application", category: "Cyber Services", price: "300", image: "https://files.catbox.moe/5721tn.png", description: "Apply for HELB loan" },
+            { id: 23, name: "Government Job Applications", category: "Cyber Services", price: "100", image: "https://files.catbox.moe/5721tn.png", description: "PSC job applications" },
+            
+            // Cyber Services - General
+            { id: 24, name: "Typing & Formatting", category: "Cyber Services", price: "70", image: "https://files.catbox.moe/5721tn.png", description: "Document typing services" },
+            { id: 25, name: "CV & Cover Letter Writing", category: "Cyber Services", price: "100", image: "https://files.catbox.moe/5721tn.png", description: "Professional CV writing" },
+            { id: 26, name: "PDF Conversion & Editing", category: "Cyber Services", price: "50", image: "https://files.catbox.moe/5721tn.png", description: "Per page PDF services" },
+            { id: 27, name: "Email Creation", category: "Cyber Services", price: "150", image: "https://files.catbox.moe/5721tn.png", description: "Professional email setup" },
+            
+            // Classes - Computer
+            { id: 28, name: "Computer Essentials", category: "Classes", price: "200", image: "https://files.catbox.moe/5721tn.png", description: "Basic computer skills" },
+            { id: 29, name: "Microsoft Word 2016", category: "Classes", price: "800", image: "https://files.catbox.moe/5721tn.png", description: "Word processing mastery" },
+            { id: 30, name: "Microsoft Excel 2016", category: "Classes", price: "1500", image: "https://files.catbox.moe/5721tn.png", description: "Spreadsheet skills" },
+            { id: 31, name: "PowerPoint 2016", category: "Classes", price: "1000", image: "https://files.catbox.moe/5721tn.png", description: "Presentation design" },
+            
+            // Classes - Tech
+            { id: 32, name: "WhatsApp Bot Creation & Hosting", category: "Classes", price: "1900", image: "https://files.catbox.moe/5721tn.png", description: "Build and host bots" },
+            { id: 33, name: "Pterodactyl Installation Training", category: "Classes", price: "999", image: "https://files.catbox.moe/5721tn.png", description: "Learn panel setup" },
+            { id: 34, name: "Pterodactyl Usage Guide", category: "Classes", price: "FREE", image: "https://files.catbox.moe/5721tn.png", description: "Free usage tutorial" },
+            { id: 35, name: "Bug Bot Creation", category: "Classes", price: "499", image: "https://files.catbox.moe/5721tn.png", description: "Create custom bots" },
+            { id: 36, name: "AI Commanding Guidance", category: "Classes", price: "299", image: "https://files.catbox.moe/5721tn.png", description: "Master AI prompting" }
+        ];
+
+        const DEFAULT_CATEGORIES = [
+            { name: "WhatsApp", icon: "fab fa-whatsapp" },
+            { name: "Pterodactyl", icon: "fas fa-server" },
+            { name: "Safaricom", icon: "fas fa-mobile-alt" },
+            { name: "Telegram", icon: "fab fa-telegram" },
+            { name: "Developers", icon: "fas fa-code" },
+            { name: "Web Design & Development", icon: "fas fa-paint-brush" },
+            { name: "Installation & Tutorial", icon: "fas fa-tools" },
+            { name: "Web Hosting Tutorials", icon: "fas fa-cloud" },
+            { name: "Hosting Tools", icon: "fas fa-hdd" },
+            { name: "Cyber Services", icon: "fas fa-shield-alt" },
+            { name: "Classes", icon: "fas fa-graduation-cap" }
+        ];
+
+        // State - Will be loaded from API
+        let products = [];
+        let categories = [];
+        let bannerSettings = { active: false, content: '', media: '' };
+        let siteSettings = { title: 'BRIAN TECH', copyright: 'Brian Tech © 2026', whatsapp: '254768116434' };
+        let cart = JSON.parse(sessionStorage.getItem('briantech_cart')) || [];
+        let isAdminLoggedIn = false;
+        let currentPage = 'home';
+        let isMusicPlaying = false;
+
+        // Admin credentials (hashed)
+        const ADMIN_CREDENTIALS = [
+            { username: 'admin@brian', passwordHash: hashPassword('BRIANTECHadmin(12517)') },
+            { username: '254728942023', passwordHash: hashPassword('Danieltati') }
+        ];
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function hashPassword(password) {
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return hash.toString(16);
+        }
+
+        async function saveData() {
+            const data = {
+                products,
+                categories,
+                banner: bannerSettings,
+                settings: siteSettings,
+                version: '1.0.0'
+            };
+            
+            try {
+                const response = await fetch('/api/save-data.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({...data, password: 'BRIANTECHadmin(12517)'})
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    console.log('Data saved to server');
+                }
+            } catch (error) {
+                console.log('Failed to save to server, using localStorage as backup');
+                // Fallback to localStorage
+                localStorage.setItem('briantech_products', JSON.stringify(products));
+                localStorage.setItem('briantech_categories', JSON.stringify(categories));
+                localStorage.setItem('briantech_banner', JSON.stringify(bannerSettings));
+                localStorage.setItem('briantech_settings', JSON.stringify(siteSettings));
+            }
+        }
+
+        // Load data from API
+        async function loadData() {
+            try {
+                const response = await fetch('/api/get-data.php');
+                const data = await response.json();
+                
+                products = data.products.length > 0 ? data.products : [...DEFAULT_PRODUCTS];
+                categories = data.categories.length > 0 ? data.categories : [...DEFAULT_CATEGORIES];
+                bannerSettings = data.banner || { active: false, content: '', media: '' };
+                siteSettings = data.settings || { title: 'BRIAN TECH', copyright: 'Brian Tech © 2026', whatsapp: '254768116434' };
+                
+                // Initialize website with loaded data
+                initTicker();
+                updateCartCount();
+                initBanner();
+                
+                // If on catalogue page, render products
+                if (currentPage === 'catalogue') renderProducts();
+                if (currentPage === 'categories') renderCategories();
+                
+            } catch (error) {
+                console.log('Using default data:', error);
+                products = [...DEFAULT_PRODUCTS];
+                categories = [...DEFAULT_CATEGORIES];
+                
+                // Initialize with defaults
+                initTicker();
+                updateCartCount();
+                initBanner();
+                
+                if (currentPage === 'catalogue') renderProducts();
+                if (currentPage === 'categories') renderCategories();
+            }
+        }
+
+        function updateCartCount() {
+            const count = cart.length;
+            document.getElementById('cartCount').textContent = count;
+            document.getElementById('mobileCartCount').textContent = count;
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // ==================== PAGE NAVIGATION ====================
+        function showPage(page) {
+            currentPage = page;
+            
+            // Update nav
+            document.querySelectorAll('#desktopNav a, .mobile-nav a').forEach(a => a.classList.remove('active'));
+            document.querySelector(`[onclick*="${page}"]`).classList.add('active');
+            
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            
+            // Show selected page
+            const pageEl = document.getElementById(`page-${page}`);
+            if (pageEl) {
+                pageEl.classList.add('active');
+            }
+
+            // Handle background video
+            const bgVideo = document.getElementById('bgVideo');
+            const matrixCanvas = document.getElementById('matrix-canvas');
+            
+            if (page === 'scholar') {
+                bgVideo.style.display = 'none';
+                matrixCanvas.style.display = 'block';
+                startMatrixRain();
+            } else if (page === 'home') {
+                bgVideo.src = 'https://files.catbox.moe/czfuv3.mp4';
+                bgVideo.style.display = 'block';
+                matrixCanvas.style.display = 'none';
+            } else {
+                // Random background for other pages
+                const videos = ['https://files.catbox.moe/czfuv3.mp4', 'https://files.catbox.moe/i37n17.mp4'];
+                bgVideo.src = videos[Math.floor(Math.random() * videos.length)];
+                bgVideo.style.display = 'block';
+                matrixCanvas.style.display = 'none';
+            }
+
+            // Load page-specific content
+            if (page === 'catalogue') renderProducts();
+            if (page === 'categories') renderCategories();
+            if (page === 'cart') renderCart();
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Close mobile menu if open
+            document.getElementById('mobileNav').classList.remove('active');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileNav').classList.toggle('active');
+        }
+
+        // ==================== TYPING ANIMATION ====================
+        const disclaimerText = "Disclaimer💀💀, All tools, softwares, scripts, and resources provided by BRIAN TECH are strictly for educational, research, testing, and legitimate purposes only. Any misuse of products and services is not supported by BRIAN TECH";
+        let charIndex = 0;
+
+        function typeText() {
+            const typingElement = document.getElementById('typingText');
+            if (charIndex < disclaimerText.length) {
+                typingElement.textContent += disclaimerText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeText, 50);
+            } else {
+                setTimeout(() => {
+                    typingElement.textContent = '';
+                    charIndex = 0;
+                    typeText();
+                }, 3000);
+            }
+        }
+
+        // ==================== SCROLLING TICKER ====================
+        function initTicker() {
+            const ticker = document.getElementById('tickerContent');
+            const items = products.map(p => p.name).concat(categories.map(c => c.name));
+            let html = '';
+            for (let i = 0; i < 3; i++) {
+                items.forEach(item => {
+                    html += `<span class="ticker-item">${item}</span>`;
+                });
+            }
+            ticker.innerHTML = html;
+        }
+
+        // ==================== PRODUCTS ====================
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            const tabs = document.getElementById('categoryTabs');
+            
+            // Render category tabs
+            let tabsHtml = '<button class="category-tab ' + (filter === 'all' ? 'active' : '') + '" onclick="filterProducts(\'all\')">All</button>';
+            categories.forEach(cat => {
+                tabsHtml += `<button class="category-tab ${filter === cat.name ? 'active' : ''}" onclick="filterProducts('${cat.name}')">${cat.name}</button>`;
+            });
+            tabs.innerHTML = tabsHtml;
+            
+            // Render products
+            const filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
+            
+            let html = '';
+            filteredProducts.forEach(product => {
+                html += `
+                    <div class="product-card">
+                        <img src="${product.image || 'https://files.catbox.moe/5721tn.png'}" alt="${product.name}" class="product-image" onclick="showImageModal('${product.image || 'https://files.catbox.moe/5721tn.png'}')">
+                        <div class="product-info">
+                            <h3 class="product-name">${product.name}</h3>
+                            <p class="product-category">${product.category}</p>
+                            <p class="product-price">KES ${product.price}</p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 15px;">${product.description}</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-cart" onclick="addToCart(${product.id})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                                <button class="btn btn-order" onclick="orderNow(${product.id})"><i class="fab fa-whatsapp"></i> Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            grid.innerHTML = html || '<p class="text-center" style="grid-column: 1/-1; padding: 40px;">No products found in this category.</p>';
+        }
+
+        function filterProducts(category) {
+            renderProducts(category);
+        }
+
+        // ==================== CATEGORIES PAGE ====================
+        function renderCategories() {
+            const grid = document.getElementById('categoriesGrid');
+            let html = '';
+            
+            categories.forEach(cat => {
+                const count = products.filter(p => p.category === cat.name).length;
+                html += `
+                    <div class="product-card" onclick="showPage('catalogue'); setTimeout(() => filterProducts('${cat.name}'), 100);" style="cursor: pointer;">
+                        <div class="product-info" style="text-align: center; padding: 40px 20px;">
+                            <i class="${cat.icon}" style="font-size: 3rem; color: var(--gold); margin-bottom: 20px;"></i>
+                            <h3 class="product-name">${cat.name}</h3>
+                            <p class="product-category">${count} item${count !== 1 ? 's' : ''}</p>
+                            <button class="btn btn-order" style="margin-top: 15px;"><i class="fas fa-eye"></i> View Products</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            grid.innerHTML = html;
+        }
+
+        // ==================== CART ====================
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                cart.push(product);
+                sessionStorage.setItem('briantech_cart', JSON.stringify(cart));
+                updateCartCount();
+                showToast(`${product.name} added to cart!`);
+            }
+        }
+
+        function removeFromCart(index) {
+            const removed = cart[index];
+            cart.splice(index, 1);
+            sessionStorage.setItem('briantech_cart', JSON.stringify(cart));
+            updateCartCount();
+            renderCart();
+            showToast(`${removed.name} removed from cart`);
+        }
+
+        function clearCart() {
+            if (cart.length === 0) return;
+            cart = [];
+            sessionStorage.setItem('briantech_cart', JSON.stringify(cart));
+            updateCartCount();
+            renderCart();
+            showToast('Cart cleared!');
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartSummary = document.getElementById('cartSummary');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h2>Your cart is empty</h2>
+                        <p>Add some products to get started!</p>
+                        <button class="btn btn-cart" onclick="showPage('catalogue')" style="margin-top: 20px; padding: 12px 30px;"><i class="fas fa-shopping-bag"></i> Browse Products</button>
+                    </div>
+                `;
+                cartSummary.style.display = 'none';
+                return;
+            }
+            
+            let html = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                // Extract numeric value from price (handle ranges like "1000-30000")
+                let priceStr = item.price.replace(/[^0-9\-]/g, '');
+                let priceValue = 0;
+                
+                if (priceStr.includes('-')) {
+                    // Take average of range
+                    const range = priceStr.split('-').map(Number);
+                    priceValue = (range[0] + range[1]) / 2;
+                } else {
+                    priceValue = parseFloat(priceStr) || 0;
+                }
+                
+                total += priceValue;
+                
+                html += `
+                    <div class="cart-item">
+                        <img src="${item.image || 'https://files.catbox.moe/5721tn.png'}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <h3 class="cart-item-name">${item.name}</h3>
+                            <p class="cart-item-category">${item.category}</p>
+                            <p class="cart-item-price">KES ${item.price}</p>
+                        </div>
+                        <button class="cart-item-remove" onclick="removeFromCart(${index})"><i class="fas fa-trash"></i> Remove</button>
+                    </div>
+                `;
+            });
+            
+            cartItems.innerHTML = html;
+            document.getElementById('cartTotal').textContent = `KES ${total.toLocaleString()}`;
+            cartSummary.style.display = 'block';
+        }
+
+        function orderNow(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                const message = encodeURIComponent(
+                    `*NEW ORDER - Brian Tech*\n\n` +
+                    `*Product:* ${product.name}\n` +
+                    `*Category:* ${product.category}\n` +
+                    `*Price:* KES ${product.price}\n\n` +
+                    `I would like to order this product. Please proceed with payment instructions.`
+                );
+                window.open(`https://wa.me/${siteSettings.whatsapp}?text=${message}`, '_blank');
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            
+            let message = `*NEW ORDER - Brian Tech*\n\n*Order Summary:*\n\n`;
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                let priceStr = item.price.replace(/[^0-9\-]/g, '');
+                let priceValue = 0;
+                
+                if (priceStr.includes('-')) {
+                    const range = priceStr.split('-').map(Number);
+                    priceValue = (range[0] + range[1]) / 2;
+                } else {
+                    priceValue = parseFloat(priceStr) || 0;
+                }
+                
+                total += priceValue;
+                message += `${index + 1}. *${item.name}*\n   Category: ${item.category}\n   Price: KES ${item.price}\n\n`;
+            });
+            
+            message += `*TOTAL AMOUNT: KES ${total.toLocaleString()}*\n\n`;
+            message += `I would like to proceed with this order. Please provide payment details.`;
+            
+            window.open(`https://wa.me/${siteSettings.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // ==================== SEARCH ====================
+        function handleSearch(query) {
+            const suggestions = document.getElementById('searchSuggestions');
+            
+            if (query.length < 2) {
+                suggestions.classList.remove('active');
+                return;
+            }
+            
+            const lowerQuery = query.toLowerCase();
+            const results = [];
+            
+            // Search products
+            products.forEach(p => {
+                if (p.name.toLowerCase().includes(lowerQuery) || 
+                    p.category.toLowerCase().includes(lowerQuery) ||
+                    p.description.toLowerCase().includes(lowerQuery)) {
+                    results.push({ name: p.name, category: p.category, type: 'product', id: p.id });
+                }
+            });
+            
+            // Search categories
+            categories.forEach(c => {
+                if (c.name.toLowerCase().includes(lowerQuery)) {
+                    results.push({ name: c.name, type: 'category' });
+                }
+            });
+            
+            if (results.length === 0) {
+                suggestions.innerHTML = '<div class="search-suggestion-item">No results found</div>';
+                suggestions.classList.add('active');
+                return;
+            }
+            
+            let html = '';
+            results.slice(0, 8).forEach(result => {
+                if (result.type === 'product') {
+                    html += `<div class="search-suggestion-item" onclick="searchSelectProduct(${result.id})">
+                        <span>${result.name}</span>
+                        <span class="category-tag">${result.category}</span>
+                    </div>`;
+                } else {
+                    html += `<div class="search-suggestion-item" onclick="searchSelectCategory('${result.name}')">
+                        <span>${result.name}</span>
+                        <span class="category-tag">Category</span>
+                    </div>`;
+                }
+            });
+            
+            suggestions.innerHTML = html;
+            suggestions.classList.add('active');
+        }
+
+        function searchSelectProduct(id) {
+            document.getElementById('searchSuggestions').classList.remove('active');
+            document.getElementById('searchInput').value = '';
+            showPage('catalogue');
+            setTimeout(() => {
+                const product = products.find(p => p.id === id);
+                if (product) filterProducts(product.category);
+            }, 100);
+        }
+
+        function searchSelectCategory(name) {
+            document.getElementById('searchSuggestions').classList.remove('active');
+            document.getElementById('searchInput').value = '';
+            showPage('catalogue');
+            setTimeout(() => filterProducts(name), 100);
+        }
+
+        // Close search on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                document.getElementById('searchSuggestions').classList.remove('active');
+            }
+        });
+
+        // ==================== IMAGE MODAL ====================
+        function showImageModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.remove('active');
+        }
+
+        // ==================== MUSIC TOGGLE ====================
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            const icon = document.getElementById('musicIcon');
+            
+            if (isMusicPlaying) {
+                audio.pause();
+                icon.classList.remove('fa-volume-up');
+                icon.classList.add('fa-volume-mute');
+            } else {
+                audio.volume = 0.3;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+                icon.classList.remove('fa-volume-mute');
+                icon.classList.add('fa-volume-up');
+            }
+            isMusicPlaying = !isMusicPlaying;
+        }
+
+        // ==================== AI CHAT ====================
+        const AI_RESPONSES = {
+            greetings: ["Hello! How can I help you today?", "Hi there! Welcome to Brian Tech. What can I assist you with?", "Hey! I'm Brian AI. How may I help you?"],
+            prices: "Our prices vary by service. You can view all prices in our Catalogue page. Some popular items: WhatsApp Bot Hosting (KES 50), Web Development (KES 10,000-30,000), CV Writing (KES 100). Is there a specific service you'd like to know about?",
+            categories: "We have various categories: WhatsApp, Pterodactyl, Safaricom, Telegram, Developers, Web Design, Installation & Tutorials, Hosting Tools, Cyber Services, and Classes. Which one interests you?",
+            payment: "We accept M-Pesa (Till: 6955715, Paybill: 625625, Account: 20177486), MiniPay, PayPal, Eversend, Mukuru, and Credit Cards. Visit our Payment Methods page for details.",
+            order: "To place an order: 1) Browse our Catalogue, 2) Add items to cart or click 'Order Now', 3) Complete your order via WhatsApp, 4) Make payment using any of our payment methods.",
+            contact: "You can reach us on WhatsApp at +254 768 116 434. Click the WhatsApp icon to start chatting directly!",
+            about: "Brian Tech is a modern technology solutions brand led by Brian. We provide web development, system installations, automation tools, consultancy, cyber services, and technical training.",
+            sorry: "I apologize if I caused any confusion or frustration. How can I better assist you?",
+            default: "I'm here to help! You can ask me about our products, services, prices, payment methods, or how to place an order. What would you like to know?"
+        };
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            // Add user message
+            messagesContainer.innerHTML += `<div class="chat-message user">${escapeHtml(message)}</div>`;
+            input.value = '';
+            
+            // Show typing indicator
+            messagesContainer.innerHTML += `
+                <div class="chat-message bot typing" id="typingIndicator">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Generate response after delay
+            setTimeout(() => {
+                const response = generateAIResponse(message);
+                document.getElementById('typingIndicator').remove();
+                messagesContainer.innerHTML += `<div class="chat-message bot">${response}</div>`;
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1500 + Math.random() * 1500);
+        }
+
+        function generateAIResponse(message) {
+            const lowerMsg = message.toLowerCase();
+            
+            if (lowerMsg.match(/^(hi|hello|hey|greetings)/)) {
+                return AI_RESPONSES.greetings[Math.floor(Math.random() * AI_RESPONSES.greetings.length)];
+            }
+            if (lowerMsg.includes('price') || lowerMsg.includes('cost') || lowerMsg.includes('how much')) {
+                // Check for specific product
+                for (let product of products) {
+                    if (lowerMsg.includes(product.name.toLowerCase())) {
+                        return `The ${product.name} costs KES ${product.price}. Would you like to order it?`;
+                    }
+                }
+                return AI_RESPONSES.prices;
+            }
+            if (lowerMsg.includes('category') || lowerMsg.includes('categories')) {
+                return AI_RESPONSES.categories;
+            }
+            if (lowerMsg.includes('pay') || lowerMsg.includes('mpesa') || lowerMsg.includes('payment')) {
+                return AI_RESPONSES.payment;
+            }
+            if (lowerMsg.includes('order') || lowerMsg.includes('buy') || lowerMsg.includes('purchase')) {
+                return AI_RESPONSES.order;
+            }
+            if (lowerMsg.includes('contact') || lowerMsg.includes('reach') || lowerMsg.includes('whatsapp')) {
+                return AI_RESPONSES.contact;
+            }
+            if (lowerMsg.includes('about') || lowerMsg.includes('brian') || lowerMsg.includes('who')) {
+                return AI_RESPONSES.about;
+            }
+            if (lowerMsg.includes('sorry') || lowerMsg.includes('frustrated') || lowerMsg.includes('annoyed')) {
+                return AI_RESPONSES.sorry;
+            }
+            if (lowerMsg.includes('navigate') || lowerMsg.includes('find') || lowerMsg.includes('where')) {
+                return "You can navigate using the menu at the top. Here's what's available: Home, Catalogue (all products), Categories, Cart, Payment Methods, Scholar-MD, Support (this chat), and About Us.";
+            }
+            
+            // Search for product mentions
+            for (let product of products) {
+                const productWords = product.name.toLowerCase().split(' ');
+                for (let word of productWords) {
+                    if (word.length > 3 && lowerMsg.includes(word)) {
+                        return `${product.name} is available in our ${product.category} category for KES ${product.price}. Would you like to add it to your cart or place an order?`;
+                    }
+                }
+            }
+            
+            return AI_RESPONSES.default;
+        }
+
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ==================== SCHOLAR-MD ====================
+        function scholarLoaded() {
+            document.getElementById('scholarFallback').style.display = 'none';
+        }
+
+        function scholarError() {
+            document.getElementById('scholarFrame').style.display = 'none';
+            document.getElementById('scholarFallback').style.display = 'block';
+        }
+
+        // ==================== MATRIX RAIN ====================
+        function startMatrixRain() {
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const columns = Math.floor(canvas.width / 20);
+            const drops = Array(columns).fill(1);
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()';
+            
+            function draw() {
+                if (currentPage !== 'scholar') return;
+                
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#0f0';
+                ctx.font = '15px monospace';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const char = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(char, i * 20, drops[i] * 20);
+                    
+                    if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+                
+                requestAnimationFrame(draw);
+            }
+            
+            draw();
+        }
+
+        // ==================== BANNER ====================
+        function initBanner() {
+            if (bannerSettings.active) {
+                document.getElementById('newsBanner').classList.add('active');
+                document.getElementById('bannerContent').textContent = bannerSettings.content;
+                document.getElementById('mainHeader').classList.add('banner-active');
+                document.getElementById('mainContent').classList.add('banner-active');
+            }
+        }
+
+        function closeBanner() {
+            bannerSettings.active = false;
+            saveData();
+            document.getElementById('newsBanner').classList.remove('active');
+            document.getElementById('mainHeader').classList.remove('banner-active');
+            document.getElementById('mainContent').classList.remove('banner-active');
+        }
+
+        // ==================== AI BANNER ANIMATION ====================
+        function initAIBanner() {
+            const aiBanner = document.getElementById('aiBanner');
+            let showBanner = true;
+            
+            function toggleAIBanner() {
+                if (showBanner && currentPage === 'home') {
+                    aiBanner.classList.add('show');
+                    setTimeout(() => {
+                        aiBanner.classList.remove('show');
+                        showBanner = false;
+                        setTimeout(() => {
+                            showBanner = true;
+                            toggleAIBanner();
+                        }, 5000);
+                    }, 50000);
+                } else if (currentPage !== 'home') {
+                    aiBanner.classList.remove('show');
+                }
+            }
+            
+            // Start after 5 seconds
+            setTimeout(toggleAIBanner, 5000);
+        }
+
+        // ==================== ADMIN PANEL ====================
+        function checkAdminDomain() {
+            const hostname = window.location.hostname;
+            // Check for admin subdomain or admin path
+            if (hostname === 'admin.briantechspace.co.ke' || 
+                window.location.pathname.includes('/admin') ||
+                hostname.startsWith('admin.')) {
+                document.getElementById('mainSite').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+            }
+        }
+
+        function adminLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            const passwordHash = hashPassword(password);
+            
+            const valid = ADMIN_CREDENTIALS.some(cred => 
+                cred.username === username && cred.passwordHash === passwordHash
+            );
+            
+            if (valid) {
+                isAdminLoggedIn = true;
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminDashboard').classList.add('active');
+                initAdminPanel();
+                document.getElementById('loginError').style.display = 'none';
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        function adminLogout() {
+            isAdminLoggedIn = false;
+            document.getElementById('adminDashboard').classList.remove('active');
+            document.getElementById('adminLogin').style.display = 'flex';
+            document.getElementById('adminUsername').value = '';
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('loginError').style.display = 'none';
+        }
+
+        function showAdminSection(section) {
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.admin-nav a').forEach(a => a.classList.remove('active'));
+            
+            document.getElementById(`section-${section}`).classList.add('active');
+            event.target.classList.add('active');
+            
+            const titles = {
+                dashboard: 'Dashboard',
+                products: 'Manage Products',
+                categories: 'Manage Categories',
+                banner: 'News Banner',
+                settings: 'Settings'
+            };
+            document.getElementById('adminPageTitle').textContent = titles[section];
+        }
+
+        function initAdminPanel() {
+            updateAdminStats();
+            renderAdminProducts();
+            renderAdminCategories();
+            populateCategoryDropdown();
+            
+            // Load banner settings
+            document.getElementById('bannerToggle').checked = bannerSettings.active;
+            document.getElementById('bannerStatus').textContent = bannerSettings.active ? 'On' : 'Off';
+            document.getElementById('bannerText').value = bannerSettings.content;
+            document.getElementById('bannerMedia').value = bannerSettings.media || '';
+            
+            // Load site settings
+            document.getElementById('settingSiteTitle').value = siteSettings.title;
+            document.getElementById('settingCopyright').value = siteSettings.copyright;
+            document.getElementById('settingWhatsApp').value = siteSettings.whatsapp;
+        }
+
+        function updateAdminStats() {
+            document.getElementById('totalProducts').textContent = products.length;
+            document.getElementById('totalCategories').textContent = categories.length;
+        }
+
+        function populateCategoryDropdown() {
+            const select = document.getElementById('newProductCategory');
+            select.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+        }
+
+        function renderAdminProducts() {
+            const tbody = document.getElementById('adminProductsTable');
+            tbody.innerHTML = products.map(p => `
+                <tr>
+                    <td><img src="${p.image || 'https://files.catbox.moe/5721tn.png'}" alt="${p.name}"></td>
+                    <td>${p.name}</td>
+                    <td>${p.category}</td>
+                    <td>KES ${p.price}</td>
+                    <td>
+                        <button class="admin-btn admin-btn-danger" onclick="deleteProduct(${p.id})" style="padding: 5px 10px;"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function addProduct(event) {
+            event.preventDefault();
+            const newProduct = {
+                id: Date.now(),
+                name: document.getElementById('newProductName').value,
+                category: document.getElementById('newProductCategory').value,
+                price: document.getElementById('newProductPrice').value,
+                image: document.getElementById('newProductImage').value || 'https://files.catbox.moe/5721tn.png',
+                description: document.getElementById('newProductDesc').value
+            };
+            
+            products.push(newProduct);
+            saveData();
+            renderAdminProducts();
+            updateAdminStats();
+            initTicker();
+            
+            // Clear form
+            document.getElementById('newProductName').value = '';
+            document.getElementById('newProductPrice').value = '';
+            document.getElementById('newProductImage').value = '';
+            document.getElementById('newProductDesc').value = '';
+            
+            showToast('Product added successfully!');
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                products = products.filter(p => p.id !== id);
+                saveData();
+                renderAdminProducts();
+                updateAdminStats();
+                initTicker();
+                showToast('Product deleted!');
+            }
+        }
+
+        function renderAdminCategories() {
+            const container = document.getElementById('adminCategoriesList');
+            container.innerHTML = categories.map((c, i) => `
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 15px; background: var(--accent); border-radius: 8px; margin-bottom: 10px;">
+                    <span><i class="${c.icon}" style="margin-right: 10px; color: var(--gold);"></i> ${c.name}</span>
+                    <button class="admin-btn admin-btn-danger" onclick="deleteCategory(${i})" style="padding: 5px 10px;"><i class="fas fa-trash"></i></button>
+                </div>
+            `).join('');
+        }
+
+        function addCategory(event) {
+            event.preventDefault();
+            const newCategory = {
+                name: document.getElementById('newCategoryName').value,
+                icon: document.getElementById('newCategoryIcon').value || 'fas fa-folder'
+            };
+            
+            categories.push(newCategory);
+            saveData();
+            renderAdminCategories();
+            populateCategoryDropdown();
+            updateAdminStats();
+            initTicker();
+            
+            document.getElementById('newCategoryName').value = '';
+            document.getElementById('newCategoryIcon').value = '';
+            
+            showToast('Category added!');
+        }
+
+        function deleteCategory(index) {
+            if (confirm('Are you sure? Products in this category will remain but may become orphaned.')) {
+                categories.splice(index, 1);
+                saveData();
+                renderAdminCategories();
+                populateCategoryDropdown();
+                updateAdminStats();
+                showToast('Category deleted!');
+            }
+        }
+
+        function toggleBanner() {
+            const isActive = document.getElementById('bannerToggle').checked;
+            document.getElementById('bannerStatus').textContent = isActive ? 'On' : 'Off';
+        }
+
+        function updateBanner() {
+            bannerSettings = {
+                active: document.getElementById('bannerToggle').checked,
+                content: document.getElementById('bannerText').value,
+                media: document.getElementById('bannerMedia').value
+            };
+            saveData();
+            initBanner();
+            showToast('Banner settings saved!');
+        }
+
+        function saveSettings() {
+            siteSettings = {
+                title: document.getElementById('settingSiteTitle').value,
+                copyright: document.getElementById('settingCopyright').value,
+                whatsapp: document.getElementById('settingWhatsApp').value
+            };
+            saveData();
+            showToast('Settings saved!');
+        }
+
+        function restoreDefaults() {
+            if (confirm('This will reset all products, categories, and settings to defaults. Continue?')) {
+                products = [...DEFAULT_PRODUCTS];
+                categories = [...DEFAULT_CATEGORIES];
+                bannerSettings = { active: false, content: 'Welcome to Brian Tech! Check out our latest offers.', media: '' };
+                siteSettings = { title: 'BRIAN TECH', copyright: 'Brian Tech © 2026', whatsapp: '254768116434' };
+                saveData();
+                initAdminPanel();
+                initTicker();
+                initBanner();
+                showToast('Defaults restored!');
+            }
+        }
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAdminDomain();
+            typeText();
+            loadData(); // Loads data from API or uses defaults
+            initAIBanner();
+            
+            // Set copyright year
+            document.querySelector('.footer-bottom p').textContent = `Brian Tech © ${new Date().getFullYear()} | All Rights Reserved`;
+            
+            // Initialize AdSense if configured
+            if (window.adsbygoogle) {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('matrix-canvas');
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        });
+
+        // Prevent default on Escape key for modals
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+
+        // Initialize page
+        if (document.getElementById('mainSite').style.display !== 'none') {
+            showPage('home');
+        }
+    </script>
+</body>
+</html>                                                         
