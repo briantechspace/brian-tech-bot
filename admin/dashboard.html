@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <h2>📦 Orders Dashboard</h2>
+  <a href="/admin/logout">Logout</a>
+  <hr>
+
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Message</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody id="orders"></tbody>
+  </table>
+
+  <script>
+    fetch("/admin/orders")
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.getElementById("orders");
+        data.forEach(o => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${o.id}</td>
+            <td>@${o.username}</td>
+            <td>${o.message}</td>
+            <td>${o.created_at}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      });
+  </script>
+</body>
+</html>
